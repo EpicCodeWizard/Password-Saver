@@ -8,6 +8,6 @@ if opt == "g":
   passwordID = input("Please input your password ID. ")
   print(FileContentsQuery().setKeys(OPERATOR_KEY.getPublicKey()).setFileId(FileId.fromString(passwordID)).execute(client).toStringUtf8())
 else:
-  passwordSTR = input("Password? ")
+  passwordSTR = input("Please input your password. ")
   transaction = FileCreateTransaction().setKeys(OPERATOR_KEY.getPublicKey()).setContents(passwordSTR).setMaxTransactionFee(Hbar(2)).execute(client)
   print(transaction.getReceipt(client).fileId.toString())
