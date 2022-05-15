@@ -1,4 +1,5 @@
 from hedera import *
+import getpass
 OPERATOR_ID = AccountId.fromString(input("Please input your operator ID. "))
 OPERATOR_KEY = PrivateKey.fromString(input("Please input your operator key. "))
 client = Client.forTestnet()
@@ -8,6 +9,6 @@ if opt == "g":
   passwordID = input("Please input your password ID. ")
   print(FileContentsQuery().setKeys(OPERATOR_KEY.getPublicKey()).setFileId(FileId.fromString(passwordID)).execute(client).toStringUtf8())
 else:
-  passwordSTR = input("Please input your password. ")
+  passwordSTR = getpass.getpass(prompt="Please input your password. Note your typing will not show. ")
   transaction = FileCreateTransaction().setKeys(OPERATOR_KEY.getPublicKey()).setContents(passwordSTR).setMaxTransactionFee(Hbar(2)).execute(client)
   print(transaction.getReceipt(client).fileId.toString())
